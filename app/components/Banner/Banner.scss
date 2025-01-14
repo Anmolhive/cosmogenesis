@@ -12,19 +12,12 @@ header.bg-banner {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('/home/bg-13.jpg');
+    background-image: url('/home/bg-13.avif');
     background-size: cover;
     animation: rotate 10s linear infinite forwards;
     
 }
 header.bg-banner::before {
-    // z-index: -1;
-    // /* scale: 2.5; */
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url('/home/bg-13.jpg');
-    background-size: cover;
     background-position: center center;
     animation: none ;
     
@@ -51,19 +44,6 @@ header.bg-banner::before {
 .bg-fixed .white-mask {
     background-color: rgba(255, 255, 255, .5);
     backdrop-filter: blur(0px);
-}
-
-
-.bg-2 {
-    background-image: url('/home/bg-9.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-}
-
-.bg-2>div:first-child {
-    background-color: rgba(255, 255, 255, .5);
-    /* backdrop-filter: blur(100px); */
 }
 
 

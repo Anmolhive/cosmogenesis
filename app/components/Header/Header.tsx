@@ -2,39 +2,47 @@
 import { useEffect } from "react";
 import "./Header.scss";
 import lax from "lax.js";
+import Image from "next/image";
 
 const Header = () => {
-    useEffect(() => {
-        lax.init();
-    
-        lax.addElements('.page-header', {
-          scrollY: {
+  useEffect(() => {
+    lax.init();
+
+    // Add the scrollY driver
+    lax.addDriver('scrollY', () => window.scrollY);
+
+    lax.addElements('.page-header', {
+        scrollY: {
             translateY: [
-              [0, 500],
-              {
-                767: [0, 0],
-                1400: [0, 30],
-              },
+                [0, 500],
+                {
+                    767: [0, 0],
+                    1400: [0, 30],
+                },
             ],
-          },
         },
-        {
-          onUpdate: (driverValues: { scrollY: number[] }, domElement: HTMLElement) => {
-            const scrollY = driverValues.scrollY[0];
-    
-            if (scrollY > 200) {
-              domElement.classList.add('bg-header');
-            } else {
-              domElement.classList.remove('bg-header');
-            }
-          },
-        });
-    
-        // Cleanup function to remove elements on unmount
-        return () => {
-          lax.removeElements('.page-header');
-        };
-      }, []);
+    });
+
+    const handleScroll = () => {
+        const scrollY = window.scrollY;
+        const headerElement = document.querySelector('.page-header');
+
+        if (scrollY > 200 && headerElement) {
+            headerElement.classList.add('bg-header');
+        } else if (headerElement) {
+            headerElement.classList.remove('bg-header');
+        }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup function to remove elements and event listener on unmount
+    return () => {
+        lax.removeElements('.page-header');
+        window.removeEventListener('scroll', handleScroll);
+    };
+}, []);
+
   return (
     <header className="fixed w-full top-0 z-50  w-100 page-header">
       <div className="container mx-auto">
@@ -124,9 +132,13 @@ const Header = () => {
               </ul>
             </div>
             <a href="#" className="text-white flex gap-4 items-center">
-              <img
+              <Image
                 className="w-auto h-24"
-                src="/header/logo.png"
+                src="/header/logo.webp"
+                alt=""
+                width={623}
+                height={1148}
+                loading="eager"
               />
               <span className="text-2xl font-bold text-steel-blue">
                 IDENTITY <br />

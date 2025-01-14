@@ -1,6 +1,31 @@
+'use client';
+
+import lax from "lax.js";
 import "./Banner.scss";
+import { useEffect } from "react";
+import Image from "next/image";
 
 const Banner = () => {
+
+  useEffect(() => {
+    lax.addElements(".selector", {
+      scrollY: {
+        translateY: [
+          [0, 1000],
+          {
+              767: [0, 200],
+              1400: [0, 1000],
+          } // Scroll range
+          
+        ],
+      },
+    });
+
+    // Cleanup function to remove elements and event listener on unmount
+    return () => {
+        lax.removeElements('.selector');
+    };
+}, []);
   return (
     <section className="h-screen bg-banner">
       <div className="white-mask w-full h-full grid place-items-center">
@@ -60,10 +85,13 @@ const Banner = () => {
               </div>
             </div>
             <div className="col-span-3 selector">
-              <img
-                src="/home/banner.png"
+              <Image
+                src="/home/banner.webp"
                 className="w-full h-auto drop-shadow"
                 alt=""
+                width={1572}
+                height={1101}
+                loading="eager"
               />
             </div>
           </div>

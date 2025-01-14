@@ -14,8 +14,28 @@
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+
+body * {
+  font-family: var(--font-family);
+}
+
+
+.bg-2 {
+  background-image: url('/home/bg-2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, .3);
+    backdrop-filter: blur(20px);
+  }
+
+  &>div:first-child {
+    background-color: rgba(255, 255, 255, .5);
+  }
 }
